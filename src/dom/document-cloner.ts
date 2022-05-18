@@ -539,10 +539,10 @@ const iframeLoader = (iframe: HTMLIFrameElement): Promise<HTMLIFrameElement> => 
 
         const documentClone = cloneWindow.document;
 
-        cloneWindow.onload = iframe.onload = () => {
-            cloneWindow.onload = iframe.onload = null;
-            const interval = setInterval(() => {
-                if (documentClone.body.childNodes.length > 0 && documentClone.readyState === 'complete') {
+        cloneWindow.onload = iframe.onload = () => { 
+            cloneWindow.onload = iframe.onload = null; 
+            const interval = setInterval(function () {
+                if (documentClone.body.childNodes.length > 0 && (documentClone.readyState === 'complete' || documentClone.readyState === 'interactive')) {
                     clearInterval(interval);
                     resolve(iframe);
                 }
